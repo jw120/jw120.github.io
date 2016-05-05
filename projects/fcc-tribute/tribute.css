@@ -1,0 +1,62 @@
+/* Defaults for whole page */
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12pt;
+}
+
+/* All content contained in a whitesmoke box */
+.tribute {
+  margin: 20px;
+  background-color: whitesmoke;
+}
+
+/* Main title and sub-heading */
+h1 {
+    font-size: 36pt;
+    text-align: center;
+}
+.sub-heading {
+  font-size: 20pt;
+  font-style: italic;
+  text-align: center;
+  margin-top: -24pt;
+}
+
+/* Main image of the subjectl witin a white box*/
+.main-image-box {
+  background-color: white;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.main-image {
+  width: 98%;
+  display: block;
+  padding-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.main-image-label {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+/* Styled quote */
+blockquote {
+  font-size: 16pt;
+}
+.quote-author {
+  margin-top: -14pt;
+  font-style: italic;
+}
+
+/* Credit below a rule */
+hr {
+  width: 70%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.credit {
+  font-size: 10pt;
+  text-align: center;
+}
