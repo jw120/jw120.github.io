@@ -7,6 +7,7 @@ body {
 /* All content contained in a whitesmoke box */
 .tribute {
   margin: 20px;
+  padding: 10px;
   background-color: whitesmoke;
 }
 
