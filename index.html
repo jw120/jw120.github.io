@@ -1,28 +1,177 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <title>jw120</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Code Portoflio - a FreeCodeCamp exercise</title>
+
+        <link href="styles.css" rel="stylesheet">
     </head>
+
     <body>
-      <h2>FreeCodeCamp projects</h2>
-      <ul>
-        <li>
-          <a href="projects/fcc-calculator/calculator.html">Calculator</a>
-          (<a href="https://github.com/jw120/fcc-calculator">source</a>)
-        </li>
-        <li>
-          <a href="projects/fcc-pomodoro/pomodoro.html">Pomodoro</a>
-          (<a href="https://github.com/jw120/fcc-pomodoro">source</a>)
-        </li>
-        <li>
-          <a href="projects/fcc-tic-tac-toe/tic-tac-toe.html">Tic-Tac-Toe</a>
-          (<a href="https://github.com/jw120/fcc-tic-tac-toe">source</a>)
-        </li>
-        <li>
-          <a href="projects/fcc-tribute/tribute.html">Tribute</a>
-          (<a href="https://github.com/jw120/fcc-tribute">source</a>)
-        </li>
-      </ul>
+
+        <header>
+            <div class="logo-row">
+                <img src="dice-white.jpg">
+            </div>
+
+            <div class="title-row">
+                Coding Portfolio
+            </div>
+
+            <div class="nav-row">
+                <div class="nav-item" id="button-portfolio">
+                    Portfolio
+                </div>
+                <div class="nav-item" id="button-blog" >
+                    Blog
+                </div>
+                <div class="nav-item" id="button-contact">
+                    Contact
+                </div>
+            </div>
+        </header>
+
+
+
+        <section id="section-portfolio">
+
+<div class="card-grid">
+    <div class="card">
+
+<div class="card-media">
+    <a href="tic-tac-toe/index.html">
+        <img class="card-image" src="tic-tac-toe.png">
+    </a>
+</div>
+<div class="card-title">
+    Tic-tac-toe
+</div>
+<div class="card-body">
+    Play noughts and crosses against the computer. Implemented with Elm 0.16
+</div>
+<div class="card-footer">
+    <a href="https://jw120.github.com/fcc-tic-tac-toe">Github</a>
+</div>
+ </div>
+    <div class="card">
+
+<div class="card-media">
+    <a href="pomodoro/index.html">
+        <img class="card-image" src="pomodoro.png">
+    </a>
+</div>
+<div class="card-title">
+    Pomodoro
+</div>
+<div class="card-body">
+    Pomodoro timer to manage work and rest periods. Implemented with Elm 0.16
+</div>
+<div class="card-footer">
+    <a href="https://jw120.github.com/fcc-pomodoro">Github</a>
+</div>
+ </div>
+    <div class="card">
+
+<div class="card-media">
+    <a href="calculator/index.html">
+        <img class="card-image" src="calculator.png">
+    </a>
+</div>
+<div class="card-title">
+    Calculator
+</div>
+<div class="card-body">
+    Simple calculator. Implemented with Elm 0.16
+</div>
+<div class="card-footer">
+    <a href="https://jw120.github.com/fcc-calculator">Github</a>
+</div>
+ </div>
+    <div class="card">
+
+<div class="card-media">
+    <a href="random-quote/index.html">
+        <img class="card-image" src="random-quote.png">
+    </a>
+</div>
+<div class="card-title">
+    Random quote
+</div>
+<div class="card-body">
+    Pulls random Chunk Norris quotes from a web API. Implemented with and without jQuery.
+</div>
+<div class="card-footer">
+    <a href="https://jw120.github.com/fcc-random-quote">Github</a>
+</div>
+ </div>
+    <div class="card">
+
+<div class="card-media">
+    <a href="index.html">
+        <img class="card-image" src="portfolio.png">
+    </a>
+</div>
+<div class="card-title">
+    Portfolio
+</div>
+<div class="card-body">
+    Portfolio of coding samples. Implemented with a responsive design using flexboxes.
+</div>
+<div class="card-footer">
+    <a href="https://jw120.github.com/fcc-portfolio">Github</a>
+</div>
+ </div>
+    <div class="card">
+
+<div class="card-media">
+    <a href="tribute/index.html">
+        <img class="card-image" src="tribute.png">
+    </a>
+</div>
+<div class="card-title">
+    Tribute
+</div>
+<div class="card-body">
+    Tribute to Richard Stallman. Implemented with HTML and CSS only.
+</div>
+<div class="card-footer">
+    <a href="https://jw120.github.com/fcc-tribute">Github</a>
+</div>
+ </div>
+
+    <div class="card hidden">
+    </div>
+    <div class="card hidden">
+    </div>
+    <div class="card hidden">
+    </div>
+    <div class="card hidden">
+    </div>
+</div>
+ </section>
+
+
+        <section id="section-blog">
+
+<p>
+    Notes on my FreeCodeCamp project progress will appear here one day.
+</p>
+ </section>
+
+        <section id="section-contact">
+
+<p>
+    Look for me as <a href="https:github.com/jw120">jw120 on github</a>. Also reachable as jw1200 on gmail.
+</p>
+ </section>
+
+        <footer>
+
+ </footer>
+
+        <script type="text/javascript" src="portfolio.js"></script>
     </body>
 </html>

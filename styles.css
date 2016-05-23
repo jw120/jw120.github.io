@@ -1,0 +1,168 @@
+/* Font for the whole page */
+body {
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+/*
+ *
+ * Page header
+ *
+ */
+
+
+/* Top of page is a centred image */
+header .logo-row {
+    display: flex;
+    justify-content: space-around;
+}
+header .logo-row > img {
+    height: 140px;
+
+}
+
+/* Page title is just centred text */
+header .title-row {
+    width: 100%;
+    padding: 10px;
+    font-size: 20pt;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+/* Navigation bar is a flex box containing centred text divs */
+header .nav-row {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: gainsboro;
+    margin-bottom: 10px;
+}
+header .nav-item {
+    flex: 1;
+    font-size: 14pt;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* Selected section is highlighted with biold text and an underline */
+header .nav-selected {
+    font-weight: bold;
+    border-bottom-style: solid;
+    border-bottom-width: 0.5px;
+
+}
+
+
+/* On a mobile device, we lose our logo and title and pin the nav bar to the top of the page */
+@media (max-width: 600px) {
+  header .logo-row {
+    display: none;
+  }
+  header .title-row {
+      display: none;
+  }
+  header .nav-row {
+      position: fixed;
+  }
+}
+/*
+ *
+ * Portfolio section
+ *
+ */
+
+
+/*
+
+Portfolio layout inspired by Google's example portfolio page for Material Design Lite
+
+https://getmdl.io/templates/portfolio/index.html
+
+but implemented using flexbox rather than their (or any other) framework
+
+Main part of page is a responsive grid of cards each holding the web pages in the portfolio. Uses a simple
+flex-box arrangement that scales the cards to fill the available width, wrapping across lines.
+
+By default the flex-box algorithm can use different width on each row
+(usually making the cards that wrap onto the last row very wide), we
+avoid this by adding a number of extra hidden zero-height cards so
+that all the rows with visible cards have cards of the same width
+
+(Trick taken from
+https://stackoverflow.com/questions/31270148/how-do-i-make-a-wrapped-flexboxs-content-grow-equally
+)
+
+*/
+
+
+.card-grid {
+    min-width: 300px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+/* Additional class added to padding cards at the end of the grid */
+.hidden {
+    visibility: hidden;
+    height: 0px;
+}
+
+.card {
+
+    /* Formatting for cards within the grid */
+    margin: 8px;
+    flex: 1;
+    min-width: 280px;
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12),0 2px 4px -1px rgba(0,0,0,.2);
+
+    /* Formatting within the card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-image {
+    width: 100%;
+}
+
+.card-title {
+    font-size: 16pt;
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+}
+
+.card-body {
+    font-size: 12pt;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 15px;
+    height: 4em;
+}
+
+.card-footer {
+    font-size: 10pt;
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: lightgrey;
+}
+
+.card-footer > a:link {
+    text-decoration: none;
+    color: black;
+}
+
+.card-footer > a:hover {
+    color: blue;
+}
