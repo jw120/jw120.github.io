@@ -186,7 +186,7 @@ https://stackoverflow.com/questions/31270148/how-do-i-make-a-wrapped-flexboxs-co
 /* On a mobile device, we add some padding at the top to accomodate the fixed header */
 @media (max-width: 600px) {
     #section-contact {
-        padding-top: 40px;
+        padding-top: 30px;
     }
 }
 footer {
