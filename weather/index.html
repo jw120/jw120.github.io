@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>FreeCodeCamp Local Weather Exercise</title>
+
+        <link href="weather.css" rel="stylesheet">
+    </head>
+
+    <body>
+
+        <div class="main-box">
+
+            <div class="city-name">
+                City name
+            </div>
+
+            <div class="descriptions-row"> <!-- Filled in with boxes by js -->
+            </div>
+
+            <div class="figures-box">
+                <div class="figure">
+                    <div class="reading" id="temperature-reading">
+                        ?
+                    </div>
+                    <div class="label">
+                        Temperature
+                    </div>
+                </div>
+                <div class="figure">
+                    <div class="reading" id="humidity-reading">
+                        ?
+                    </div>
+                    <div class="label">
+                        Humidity
+                    </div>
+                </div>
+                <div class="figure">
+                    <div class="reading" id="wind-speed-reading">
+                        ?
+                    </div>
+                    <div class="label">
+                        Wind speed
+                    </div>
+                </div>
+                <div class="figure">
+                    <div class="reading" id="wind-direction-reading">
+                        ?
+                    </div>
+                    <div class="label">
+                        Wind direction
+                    </div>
+                </div>
+            </div> <!-- figures-box -->
+
+            <div class="controls-box">
+
+                <div class="temperature-box">
+                    <button class="temperature-button" id="c-button">
+                        Celsius
+                    </button>
+                    <button class="temperature-button" id="f-button">
+                        Fahrenheit
+                    </button>
+                </div>
+                <form class="city-form">
+                    <input type="text" placeholder="City" id="city-input">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="footer">
+            Data from <a href="https://openweathermap.org/">OpenWeatherMap</a>.
+            Page by <a href="https://jw120.github.io">jw120</a>.
+        </div>
+
+        <script src="weather.js">
+        </script>
+
+    </body>
+</html>
