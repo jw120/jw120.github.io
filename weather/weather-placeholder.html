@@ -8,6 +8,7 @@
         <title>FreeCodeCamp Local Weather Exercise</title>
 
         <link href="weather.css" rel="stylesheet">
+        <link href="weather-placeholder.css" rel="stylesheet">
     </head>
 
     <body>
@@ -74,12 +75,28 @@
 
         </div>
 
+        <div class="explanation">
+            <p>
+                This is a placeholder version of the application which does not
+                make API calls or use localStorage. This version can only show
+                the weather in Cambridge.
+            </p>
+            <p>
+                The live version has an embedded API key which should
+                not be make public. Also it is problematic to use both
+                the http-only free version of the OpenWeather API and
+                the localStorage system which Chrome makes https-only.
+            </p>
+        </div>
+
+
+
         <div class="footer">
             Data from <a href="https://openweathermap.org/">OpenWeatherMap</a>.
             Page by <a href="https://jw120.github.io">jw120</a>.
         </div>
 
-        <script src="weather.js">
+        <script src="weather-placeholder.js">
         </script>
 
     </body>

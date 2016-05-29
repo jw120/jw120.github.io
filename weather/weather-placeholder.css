@@ -1,0 +1,10 @@
+/* Additonal styles for the placeholder version */
+.explanation {
+    padding: 1em;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    background-color: lightgrey;
+}
