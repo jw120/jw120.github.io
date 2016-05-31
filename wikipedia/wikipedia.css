@@ -1,0 +1,86 @@
+body {
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
+button {
+    background-color: darkslateblue;
+    color: white;
+    border: none;
+}
+
+.main-box {
+    padding-top: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.title-box {
+    font-size: 18pt;
+    font-weight: bold;
+}
+
+.controls-box {
+    padding-top: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.control-box {
+    height: 3em;
+}
+
+.result-anchor {
+    text-decoration: none;
+}
+
+.control-box button {
+    font-size: 12pt;
+    width: 13em;
+    height: 2em;
+}
+
+.control-box input {
+    font-size: 12pt;
+    width: 15em;
+    height: 2em;
+    border-color: darkslateblue;
+    text-align: center;
+    visibility: hidden; /* this is changed in JS when we reveal the input */
+}
+
+.results-box {
+    max-width: 40em;
+}
+
+.result-anchor {
+    text-decoration: none;
+}
+
+.result-box {
+    min-height: 6em;
+    margin-top: 1em;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    background-color: lightblue;
+    color: black;
+}
+
+.result-box p {
+}
+
+.result-box h4 {
+}
+
+.footer {
+    padding-top: 10em;
+    font-size: 8pt;
+    text-align: center;
+}
