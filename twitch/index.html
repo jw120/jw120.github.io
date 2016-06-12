@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>FreeCodeCamp Twitch Exercise</title>
+
+    <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css">
+    <link href="twitch.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="overall">
+
+        <div class="top">
+            <h1>Twitch Tracker</h1>
+            <input type="checkbox" id="online-filter">
+            <span class="online-filter-label">
+                Show only online channels
+            </span>
+            <i class="fa fa-plus control-icon" id="add-control" aria-hidden="true" title="Toggle pane for addding channels"></i>
+            <i class="fa fa-share control-icon" id="share-control" aria-hidden="true" title="Export list of tracked channels"></i>
+            <i class="fa fa-refresh control-icon" id="refresh-control" aria-hidden="true" title="Refresh status of tracked channels"></i>
+                    <!-- refresh-control's class is changed in Javascript -->
+
+        </div> <!-- top -->
+
+        <div class="list">
+
+        </div> <!-- list -->
+
+        <div id="bottom-box">
+            <div class="bottom-row">
+                <span class="bottom-label">Add a single channel</span>
+                <form class="add-form">
+                    <input type="text" placeholder="Channel" id="add-input">
+                </form>
+             </div> <!-- bottom-row -->
+             <div class="bottom-row">
+                <span class="bottom-label">Add channels from a text file</span>
+                <input type="file" multiple=false id="add-file">
+             </div> <!-- bottom-row -->
+        </div> <!-- bottom ->
+
+    </div>
+    <!-- overall -->
+
+    <div class="footer">
+        Page by <a href="https://jw120.github.io">jw120</a>.
+    </div>
+
+    <script src="twitch.js">
+
+    </script>
+
+</body>
+
+</html>
