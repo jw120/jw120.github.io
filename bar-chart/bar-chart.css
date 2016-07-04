@@ -1,0 +1,80 @@
+body {
+    font-family: "Helvetica", "Arial", sans-serif;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 24pt;
+}
+
+.source {
+    font-size: 8pt;
+}
+
+.axis {
+    fill: black;
+    font-size: 10px;
+}
+
+.chart .bar {
+    fill: steelblue;
+}
+
+.chart .bar:hover {
+    fill: navy;
+}
+
+.chart .axis path,
+.chart .axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+
+.chart .x-axis path {
+    display: none
+}
+
+.d3-tip {
+  line-height: 1;
+  padding: 6px;
+  background: navy; /* rgba(0, 0, 0, 0.8); */
+  color: #fff;
+  border-radius: 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: navy; /*  rgba(0, 0, 0, 0.8); */
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -2px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+.tip-date {
+    font-weight: normal;
+    font-size: 10px;
+    padding-bottom: 2px;
+}
+
+.tip-gdp {
+    font-size: 14px;
+}
+
+.footer {
+    padding-top: 10em;
+    font-size: 8pt;
+    text-align: center;
+}
