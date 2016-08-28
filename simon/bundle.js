@@ -699,7 +699,7 @@
 	function debugging() {
 	    if (typeof window !== "undefined" && window.localStorage) {
 	        var d = window.localStorage.getItem("debug");
-	        return d !== "" && d !== "0" && d.toLowerCase() !== "false";
+	        return d !== null && d !== "" && d !== "0" && d.toLowerCase() !== "false";
 	    }
 	    if (typeof process !== "undefined" && process.env && process.env.DEBUG) {
 	        return true;
