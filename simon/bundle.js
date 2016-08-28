@@ -55,7 +55,7 @@
 	var utils_1 = __webpack_require__(7);
 	utils_1.runWhenDocumentReady(function () {
 	    /** Holds all the game's state. This is used in many functions as if it was a global variable, its properties
-	     * are mutated but the object itself (i.e., the value of the reference) is not modified anywhere*/
+	     * are mutated but the object itself (i.e., the reference itself) is not modified anywhere*/
 	    var state = {};
 	    state_1.resetState(state);
 	    // Draw the board for the first time
