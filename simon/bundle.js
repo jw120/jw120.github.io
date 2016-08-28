@@ -50,7 +50,7 @@
 	 */
 	"use strict";
 	var board_1 = __webpack_require__(1);
-	var event_1 = __webpack_require__(8);
+	var event_1 = __webpack_require__(10);
 	var state_1 = __webpack_require__(5);
 	var utils_1 = __webpack_require__(7);
 	utils_1.runWhenDocumentReady(function () {
@@ -115,14 +115,19 @@
 	    redrawButton(state, "PowerButton");
 	    redrawButton(state, "StrictButton");
 	    // Draw the note buttons
-	    redrawButton(state, "BlueButton");
-	    redrawButton(state, "YellowButton");
-	    redrawButton(state, "GreenButton");
-	    redrawButton(state, "RedButton");
+	    redrawNotes(state);
 	    // Add the score
 	    redrawScore(state);
 	}
 	exports.redrawBoard = redrawBoard;
+	/** Redraw all the note buttons */
+	function redrawNotes(state) {
+	    redrawButton(state, "BlueButton");
+	    redrawButton(state, "YellowButton");
+	    redrawButton(state, "GreenButton");
+	    redrawButton(state, "RedButton");
+	}
+	exports.redrawNotes = redrawNotes;
 	/** Redraw a button based on its current state */
 	function redrawButton(state, b) {
 	    switch (b) {
@@ -328,7 +333,6 @@
 	        finalFlash: duration_1.ms(800),
 	        tuneNote: duration_1.ms(800),
 	        tuneGap: duration_1.ms(400),
-	        replayNoteTimeout: duration_1.ms(5000),
 	        replayWait: duration_1.ms(5000),
 	        afterReplay: duration_1.ms(1000),
 	        afterFailure: duration_1.ms(1000),
@@ -485,7 +489,14 @@
 	var utils_1 = __webpack_require__(7);
 	/** Initialize sound system, updating state */
 	function newAudioState() {
-	    var context = new AudioContext();
+	    // Get the AudioContext from either the standard AudioContext or the Safari-esque webkitAudioContext
+	    var context = undefined;
+	    if ("AudioContext" in window) {
+	        context = new AudioContext();
+	    }
+	    else if ("webkitAudioContext" in window) {
+	        context = new webkitAudioContext();
+	    }
 	    if (!context) {
 	        throw Error("Failed to create AudioContext");
 	    }
@@ -497,6 +508,7 @@
 	exports.newAudioState = newAudioState;
 	/** Start playing the given note, stopping after the optional duration and applying the optional callback */
 	function startPlayingSound(audio, n, dur, cb) {
+	    utils_1.eventLog("StrtPl", n, "");
 	    var osc = audio.context.createOscillator();
 	    if (!osc) {
 	        throw Error("Failed to create oscillator node");
@@ -530,18 +542,21 @@
 	    }
 	}
 	exports.startPlayingSound = startPlayingSound;
-	function stopPlayingSound(audio) {
-	    if (audio.playingSound) {
-	        audio.playingSound.stop();
-	        audio.playingSound = null;
-	    }
-	}
-	exports.stopPlayingSound = stopPlayingSound;
 	/** Stop playing any sound without calling any onended callback */
 	function resetPlayingSound(audio) {
 	    if (audio.playingSound) {
 	        audio.playingSound.onended = function () { };
-	        audio.playingSound.stop();
+	        try {
+	            audio.playingSound.stop();
+	        }
+	        catch (e) {
+	            if (e.name === "InvalidStateError") {
+	                utils_1.log("Ignored InvalidStateError in stop() during resetPlayingSound - Safari workaround");
+	            }
+	            else {
+	                utils_1.log("Ignored unexpected error in stop", e);
+	            }
+	        }
 	        audio.playingSound = null;
 	    }
 	}
@@ -571,7 +586,7 @@
 	 *
 	 */
 	"use strict";
-	var constants_1 = __webpack_require__(3);
+	var consoleLog = __webpack_require__(8);
 	/** Run the given function when document load is complete */
 	function runWhenDocumentReady(fn) {
 	    if (document.readyState !== "loading") {
@@ -605,51 +620,261 @@
 	    }
 	}
 	exports.getContext2D = getContext2D;
-	/** Log click event and how we handle it to console */
-	function eventLog(triggerName, target, action) {
-	    if (constants_1.default.logging) {
-	        console.log(padTo(triggerName, 6), padTo(target, 12), ":", action);
-	    }
-	}
-	exports.eventLog = eventLog;
-	/** Log calll event  */
-	function stepLog(stepName, message) {
-	    if (constants_1.default.logging) {
-	        console.log(padTo(stepName, 6), padTo((Date.now() % 100000).toString(), 12), ":", message);
-	    }
-	}
-	exports.stepLog = stepLog;
-	/** Log anything */
-	function log() {
-	    var args = [];
-	    for (var _i = 0; _i < arguments.length; _i++) {
-	        args[_i - 0] = arguments[_i];
-	    }
-	    if (constants_1.default.logging) {
-	        console.log.apply(console, [padTo("", 6)].concat(args));
-	    }
-	}
-	exports.log = log;
-	/** Right-pad the string with spaces to reach the given length */
-	function padTo(s, n) {
-	    if (s === null) {
-	        s = "null";
-	    }
-	    else if (s === undefined) {
-	        s = "undefined";
-	    }
-	    var pad = n - s.length;
-	    return pad > 0 ? s + "                ".substr(0, pad) : s;
-	}
 	/** Wrapped version of setTimeout which takes a Duration (or null for zero) and reverses argument order */
 	function timeout(dur, cb) {
 	    setTimeout(cb, dur === null ? 0 : dur.millseconds(), cb);
 	}
 	exports.timeout = timeout;
+	function eventLog(triggerName, target, action) {
+	    consoleLog.fixed([6, 0, 12, 0, 0], triggerName, " ", target, " : ", action);
+	}
+	exports.eventLog = eventLog;
+	function stepLog(stepName, message) {
+	    consoleLog.fixed([6, 0, 12, 0, 0], stepName, " ", (Date.now() % 100000).toString(), " : ", message);
+	}
+	exports.stepLog = stepLog;
+	function log() {
+	    var args = [];
+	    for (var _i = 0; _i < arguments.length; _i++) {
+	        args[_i - 0] = arguments[_i];
+	    }
+	    consoleLog.free.apply(null, args);
+	}
+	exports.log = log;
 
 
 /***/ },
 /* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/*
+	 * Provide lightly structured output to console.log() switched on by either
+	 * DEBUG environment variable existing or the localstorage debug string existing and not being empty, "0" or "false" (case insensitive)
+	 *
+	 * We use the format console.log("%s %f", "Hi", 2) instead of just console.log("Hi", 2) as the latter shows across multi-lines in Safari
+	 *
+	 * Intended use within code:
+	 *  import * as consoleLog from "consoleLog";
+	 *  consoleLog.fixed([10, 10], "A", "B", "C"); // pads the first two fields to 10 spaces (and truncates if longer)
+	 *  consoleLog.free("A", "B", "C"); // space sepearated
+	 *
+	 * Then to active logging under node:
+	 *  DEBUG=YES node prog.js
+	 *
+	 * Or to activate in the browser, use (in the console window)
+	 *  window.localStorage.settItem("debug", 1)
+	 * And to deactivate
+	 *  window.localStorage.setItem("debug", 0)
+	 *
+	 * Disadvantages of this module
+	 *  - In browser logging shows the filename of the line number of the fuction in this file, not the caller
+	 *  - In Safari, the font is not fixed width so the fixed() function has little impact
+	 *
+	 */
+	"use strict";
+	/** If debugging activated, pass all the argyments as a substituted string to console.log after padding/truncating to given widths (if non-zero) */
+	function fixed(widths) {
+	    var args = [];
+	    for (var _i = 1; _i < arguments.length; _i++) {
+	        args[_i - 1] = arguments[_i];
+	    }
+	    if (debugging()) {
+	        var paddedArgs = args.map(function (x, i) { return padTo(expandUN(x), widths[i]); });
+	        console.log.apply(console, [typeTemplate(paddedArgs)].concat(paddedArgs));
+	    }
+	}
+	exports.fixed = fixed;
+	/** If debugging is activated, pass all the arguments as a substituted string to console.log */
+	function free() {
+	    var args = [];
+	    for (var _i = 0; _i < arguments.length; _i++) {
+	        args[_i - 0] = arguments[_i];
+	    }
+	    if (debugging()) {
+	        console.log.apply(console, [typeTemplate(args)].concat(args));
+	    }
+	}
+	exports.free = free;
+	/** Helper function to see if debugging has been turned on by localStorage or environment variable */
+	function debugging() {
+	    if (typeof window !== "undefined" && window.localStorage) {
+	        var d = window.localStorage.getItem("debug");
+	        return d !== "" && d !== "0" && d.toLowerCase() !== "false";
+	    }
+	    if (typeof process !== "undefined" && process.env && process.env.DEBUG) {
+	        return true;
+	    }
+	    return false;
+	}
+	/** Helper function to turn undefined and null into a string, passing through anything else */
+	function expandUN(s) {
+	    if (s === null) {
+	        return "null";
+	    }
+	    else if (s === undefined) {
+	        return "undefined";
+	    }
+	    return s;
+	}
+	/** Helper function to truncate or right-pad the string (with spaces) to given width; does nothing if width is non-positive or argument */
+	function padTo(x, width) {
+	    if (!width || width <= 0) {
+	        return x;
+	    }
+	    var s = x.toString();
+	    var paddingNeeded = width - s.length;
+	    if (paddingNeeded > 0) {
+	        return s + "                                                                      ".substr(0, paddingNeeded);
+	    }
+	    else {
+	        return s.substr(0, width);
+	    }
+	}
+	/** Helper function to provide a template for console.log string substitution based on the types of the given arguments */
+	function typeTemplate(args) {
+	    return args.map(function (x) {
+	        switch (typeof x) {
+	            case "string":
+	            case "undefined":
+	            case "null":
+	                return "%s";
+	            case "number":
+	                return "%f"; // There is also a %i available for integers, but we just use the float template for all numbers
+	            default:
+	                return "%o";
+	        }
+	    }).join(" ");
+	}
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	// shim for using process in browser
+	
+	var process = module.exports = {};
+	
+	// cached from whatever global is present so that test runners that stub it
+	// don't break things.  But we need to wrap it in a try catch in case it is
+	// wrapped in strict mode code which doesn't define any globals.  It's inside a
+	// function because try/catches deoptimize in certain engines.
+	
+	var cachedSetTimeout;
+	var cachedClearTimeout;
+	
+	(function () {
+	  try {
+	    cachedSetTimeout = setTimeout;
+	  } catch (e) {
+	    cachedSetTimeout = function () {
+	      throw new Error('setTimeout is not defined');
+	    }
+	  }
+	  try {
+	    cachedClearTimeout = clearTimeout;
+	  } catch (e) {
+	    cachedClearTimeout = function () {
+	      throw new Error('clearTimeout is not defined');
+	    }
+	  }
+	} ())
+	var queue = [];
+	var draining = false;
+	var currentQueue;
+	var queueIndex = -1;
+	
+	function cleanUpNextTick() {
+	    if (!draining || !currentQueue) {
+	        return;
+	    }
+	    draining = false;
+	    if (currentQueue.length) {
+	        queue = currentQueue.concat(queue);
+	    } else {
+	        queueIndex = -1;
+	    }
+	    if (queue.length) {
+	        drainQueue();
+	    }
+	}
+	
+	function drainQueue() {
+	    if (draining) {
+	        return;
+	    }
+	    var timeout = cachedSetTimeout(cleanUpNextTick);
+	    draining = true;
+	
+	    var len = queue.length;
+	    while(len) {
+	        currentQueue = queue;
+	        queue = [];
+	        while (++queueIndex < len) {
+	            if (currentQueue) {
+	                currentQueue[queueIndex].run();
+	            }
+	        }
+	        queueIndex = -1;
+	        len = queue.length;
+	    }
+	    currentQueue = null;
+	    draining = false;
+	    cachedClearTimeout(timeout);
+	}
+	
+	process.nextTick = function (fun) {
+	    var args = new Array(arguments.length - 1);
+	    if (arguments.length > 1) {
+	        for (var i = 1; i < arguments.length; i++) {
+	            args[i - 1] = arguments[i];
+	        }
+	    }
+	    queue.push(new Item(fun, args));
+	    if (queue.length === 1 && !draining) {
+	        cachedSetTimeout(drainQueue, 0);
+	    }
+	};
+	
+	// v8 likes predictible objects
+	function Item(fun, array) {
+	    this.fun = fun;
+	    this.array = array;
+	}
+	Item.prototype.run = function () {
+	    this.fun.apply(null, this.array);
+	};
+	process.title = 'browser';
+	process.browser = true;
+	process.env = {};
+	process.argv = [];
+	process.version = ''; // empty string to avoid regexp issues
+	process.versions = {};
+	
+	function noop() {}
+	
+	process.on = noop;
+	process.addListener = noop;
+	process.once = noop;
+	process.off = noop;
+	process.removeListener = noop;
+	process.removeAllListeners = noop;
+	process.emit = noop;
+	
+	process.binding = function (name) {
+	    throw new Error('process.binding is not supported');
+	};
+	
+	process.cwd = function () { return '/' };
+	process.chdir = function (dir) {
+	    throw new Error('process.chdir is not supported');
+	};
+	process.umask = function() { return 0; };
+
+
+/***/ },
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -660,7 +885,7 @@
 	"use strict";
 	var board_1 = __webpack_require__(1);
 	var constants_1 = __webpack_require__(3);
-	var handlers_1 = __webpack_require__(9);
+	var handlers_1 = __webpack_require__(11);
 	var utils_1 = __webpack_require__(7);
 	/** Shortcut to constants.boardDimensions to reduce verbosity */
 	var dim = constants_1.default.boardDimensions;
@@ -718,7 +943,7 @@
 	            case "StrictButton":
 	            case "PowerButton":
 	            case null:
-	                utils_1.eventLog("Down", down, "ignored mouse down on control or null button");
+	                utils_1.eventLog("Down", down, "ignored down on control/null button");
 	                clearDepressed(state, down); // if we have a stray note lit up, unlight it
 	                break;
 	            default:
@@ -804,7 +1029,7 @@
 
 
 /***/ },
-/* 9 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -814,10 +1039,10 @@
 	"use strict";
 	var board_1 = __webpack_require__(1);
 	var constants_1 = __webpack_require__(3);
-	var replay_timeout_1 = __webpack_require__(10);
+	var replay_timeout_1 = __webpack_require__(12);
 	var sound_1 = __webpack_require__(6);
 	var state_1 = __webpack_require__(5);
-	var tune_1 = __webpack_require__(11);
+	var tune_1 = __webpack_require__(13);
 	var utils_1 = __webpack_require__(7);
 	/** Handle a click on the power button */
 	function handlePowerClick(state) {
@@ -856,7 +1081,7 @@
 	        utils_1.eventLog("Down", b, "redrew as depressed");
 	        board_1.redrawButton(state, b);
 	        if (state_1.buttonToNote(b) === state.tune[state.notesMatched]) {
-	            sound_1.startPlayingSound(state.audio, state_1.buttonToNote(b), constants_1.default.durations.replayNoteTimeout, function () { return endPlayingNote(state); });
+	            sound_1.startPlayingSound(state.audio, state_1.buttonToNote(b), undefined, function () { return endPlayingNote(state); });
 	        }
 	        else {
 	            replayFailure(state, b);
@@ -870,7 +1095,7 @@
 	/** Handle a mouseDown event given that state.depressed is a note button and power is on) */
 	function handleUpFromNote(state) {
 	    utils_1.eventLog("Up", undefined, "from note, stops sound ");
-	    sound_1.stopPlayingSound(state.audio);
+	    sound_1.resetPlayingSound(state.audio);
 	    if (state.depressed !== null) {
 	        endPlayingNote(state);
 	    }
@@ -916,10 +1141,18 @@
 	}
 	/** Replay has failed - play failure sound and restart; unlights the button provided if any */
 	function replayFailure(state, b) {
+	    // If note is still playing (as this function was called from a timeout), stop it
+	    if (state.audio.playingSound) {
+	        state.audio.playingSound.stop();
+	        state.audio.playingSound = null;
+	    }
 	    sound_1.playFailureSound(state.audio, function () {
 	        state.depressed = null;
 	        if (b) {
 	            board_1.redrawButton(state, b);
+	        }
+	        else {
+	            board_1.redrawNotes(state); // If failure from a timeout,redraw all the notes
 	        }
 	    });
 	    state.notesMatched = null;
@@ -941,7 +1174,7 @@
 
 
 /***/ },
-/* 10 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -951,7 +1184,7 @@
 	 */
 	"use strict";
 	var constants_1 = __webpack_require__(3);
-	var handlers_1 = __webpack_require__(9);
+	var handlers_1 = __webpack_require__(11);
 	var utils_1 = __webpack_require__(7);
 	/** Establish timeout for replays */
 	function setReplayTimeout(state) {
@@ -986,7 +1219,7 @@
 
 
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -996,7 +1229,7 @@
 	"use strict";
 	var board_1 = __webpack_require__(1);
 	var constants_1 = __webpack_require__(3);
-	var replay_timeout_1 = __webpack_require__(10);
+	var replay_timeout_1 = __webpack_require__(12);
 	var sound_1 = __webpack_require__(6);
 	var state_1 = __webpack_require__(5);
 	var utils_1 = __webpack_require__(7);
