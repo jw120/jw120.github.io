@@ -4,10 +4,10 @@ List of all of my hobbyist programming in recent years (since I started to use g
 
 Includes links to github and bitbucket repositories, some of which are private.
 
-TODO
+### TODO
 
 - Tidy below
-- Add bitbuckets
+- Add repos bitbucket
 
 
 ## You could have written...
@@ -44,7 +44,9 @@ Exercises for points and prizes
     + Front End Certification, legacy version (2016). HTML, CSS, JavaScript (plus Elm and TypeScript). [Portfolio page](fcc_portfolio.html)
     + Data Analysis with Python (2021). Numpy, Pandas, Jupyer. [Bitbucket(private)](https://bitbucket.org/jw1200/fcc-data-analysis-py/)
     + Scientific Computing with Python (2021). Python. [Bitbucket (private)](https://bitbucket.org/jw1200/fcc-sci-comp-py/)
-    + fcc-algo-scripting (2016)
+    + JavaScript Algorithms and Data Structures (2016)
+    [Github exercises](https://github.com/jw120/fcc-algo-scripting)
+    Certification solutions?
 
 * [Advent of Code](adventofcode.com). Coding exercises for any language.
 [Github for code](https://github.com/jw120/aoc-code) and
@@ -91,6 +93,11 @@ Github repos (private) for
 
 * react-tutorial-ts
 * movie-vote
+
+
+## Other things
+
+* [PostgreSQL Exercises](https://pgexercises.com/)
 
 ## Misc
 
