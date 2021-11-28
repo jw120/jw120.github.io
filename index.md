@@ -63,6 +63,8 @@ Exercises for points and prizes
 
 Following along a book or course
 
+* [Brent Yorgey's Introduction to Haskell course](https://github.com/jw120/byorgey-haskell). Complete solutions to the exercises.
+
 * [Structure and Interpretation of Computer Programs](https://mitpress.mit.edu/sites/default/files/sicp/index.html),
 solved exercises through 3.10 (2020)
 [Github (private)](https://github.com/jw120/sicp)
