@@ -83,6 +83,8 @@ Github repos (private) for
 [set-game](https://github.com/jw120/cs193p-set-game), and
 [memorize](https://github.com/jw120/cs193p-memorize).
 
+* Google's [haskell training](https://github.com/google/haskell-trainings) [Github (private)](https://github.com/jw120/haskell-trainings)
+
 * programming_elixir
 * beautful racket
 
